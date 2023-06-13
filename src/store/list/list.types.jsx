@@ -1,0 +1,3 @@
+export const LIST_ACTION_TYPES = {
+  SET_VIRTUAL_LIST: 'list/SET_VIRTUAL_LIST',
+};

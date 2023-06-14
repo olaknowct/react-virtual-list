@@ -6,29 +6,30 @@ import { Box, TextField, Typography } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Link from 'next/link';
 
+const defaultFormFields = {
+  email: '',
+  password: '',
+};
+
 function LoginForm() {
-  const emailInputRef = useState();
-  const passwordInputRef = useRef();
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const [loading, setLoading] = useState(false);
+  const { email, password } = formFields;
 
-  async function submitHandler(event) {
+  const submitHandler = async (event) => {
     setLoading(true);
 
     event.preventDefault();
 
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-
     try {
-      if (!enteredEmail || !enteredPassword) throw new Error('Please fill the required details!');
+      if (!email || !password) throw new Error('Please fill the required details!');
 
       const result = await signIn('credentials', {
         redirect: false,
-        email: enteredEmail,
-        password: enteredPassword,
+        ...formFields,
       });
 
       if (result.error) throw new Error(result.error);
@@ -38,7 +39,12 @@ function LoginForm() {
       setError(error.message);
     }
     setLoading(false);
-  }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
 
   return (
     <Box
@@ -54,14 +60,18 @@ function LoginForm() {
           id='outlined-helperText'
           label='email'
           helperText='Please input a valid email'
-          inputRef={emailInputRef}
+          onChange={handleChange}
+          name='email'
+          value={email}
         />
         <TextField
           id='outlined-password-input'
           label='Password'
           type='password'
-          inputRef={passwordInputRef}
+          onChange={handleChange}
           helperText='Enter your password'
+          name='password'
+          value={password}
         />
 
         <LoadingButton

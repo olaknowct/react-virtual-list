@@ -5,7 +5,7 @@ import Item from '../../components/item/item';
 import { useDispatch, useSelector } from 'react-redux';
 import { setVirtualList } from '../../store/list/list.action';
 import { selectVirtualList } from '../../store/list/list-selector';
-import { data } from '../../mock-data/data';
+import { data } from '../../model/list';
 
 export default function List() {
   const virtualList = useSelector(selectVirtualList);

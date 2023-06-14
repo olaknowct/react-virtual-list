@@ -9,8 +9,8 @@ function NavBar() {
   const router = useRouter();
 
   async function logoutHandler() {
-    await signOut();
-    router.push('/login');
+    await signOut({ redirect: false });
+    router.replace('/login');
   }
 
   return (

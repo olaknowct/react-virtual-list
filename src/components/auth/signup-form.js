@@ -42,31 +42,36 @@ async function createUser(email, password, passwordConfirm) {
   return data;
 }
 
-function SignupForm() {
-  const emailInputRef = useState();
-  const passwordInputRef = useRef();
-  const passwordConfirmInputRef = useRef();
+const defaultFormFields = {
+  email: '',
+  password: '',
+  passwordConfirm: '',
+};
+
+const SignupForm = () => {
+  const [formFields, setFormFields] = useState(defaultFormFields);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [signedUp, setSignedUp] = useState(false);
 
-  async function submitHandler(event) {
+  const { email, password, passwordConfirm } = formFields;
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
+  const submitHandler = async (event) => {
     setLoading(true);
 
     event.preventDefault();
 
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
-    const enteredPasswordConfirm = passwordConfirmInputRef.current.value;
-
     try {
-      if (!enteredEmail || (!enteredPassword && !enteredPasswordConfirm))
+      if (!email || (!password && !passwordConfirm))
         throw new Error('Please fill the required details!');
 
-      if (enteredPassword !== enteredPasswordConfirm)
-        throw new Error('Password not matched. please try again');
+      if (password !== passwordConfirm) throw new Error('Password not matched. please try again');
 
-      const result = await createUser(enteredEmail, enteredPassword, enteredPasswordConfirm);
+      const result = await createUser(email, password, passwordConfirm);
 
       if (result.error) throw new Error(result.error);
 
@@ -75,8 +80,14 @@ function SignupForm() {
       setError(error.message);
     }
 
+    resetFormFields();
     setLoading(false);
-  }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
 
   return (
     <>
@@ -94,22 +105,28 @@ function SignupForm() {
               id='outlined-helperText'
               label='email'
               helperText='Please input a valid email'
-              inputRef={emailInputRef}
+              onChange={handleChange}
+              name='email'
+              value={email}
             />
             <TextField
               id='outlined-password-input'
               label='Password'
               type='password'
-              inputRef={passwordInputRef}
               helperText='Enter your password'
+              onChange={handleChange}
+              name='password'
+              value={password}
             />
 
             <TextField
               id='outlined-password-input'
               label='Password Confirm'
               type='password'
-              inputRef={passwordConfirmInputRef}
               helperText='Enter your password'
+              onChange={handleChange}
+              name='passwordConfirm'
+              value={passwordConfirm}
             />
 
             <LoadingButton
@@ -131,19 +148,17 @@ function SignupForm() {
         </Box>
       ) : (
         <Alert severity='success' className='w-1/2 mx-auto mt-8 relative'>
-          <Link href='/login' className='text-cyan-950 text-center '>
-            Successfully signed up, click here and log in now! 😊
-            <span
-              className='absolute top-0 right-1 text-xl'
-              onClick={() => setSignedUp((signedUp) => !signedUp)}
-            >
-              ✖
-            </span>
-          </Link>
+          <Link href='/login'>Successfully signed up, click here and log in now! 😊</Link>
+          <button
+            className='absolute top-0 right-1 text-xl'
+            onClick={() => setSignedUp((signedUp) => !signedUp)}
+          >
+            ✖
+          </button>
         </Alert>
       )}
     </>
   );
-}
+};
 
 export default SignupForm;

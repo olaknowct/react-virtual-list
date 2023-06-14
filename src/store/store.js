@@ -1,9 +1,16 @@
-import { applyMiddleware, compose, legacy_createStore as createStore } from 'redux';
 import logger from 'redux-logger';
 import { rootReducer } from './root-reducer';
+import { rootSaga } from './root-saga';
+import createSagaMiddleware from 'redux-saga';
+import { configureStore } from '@reduxjs/toolkit';
 
-const middlewares = [logger];
+const sagaMiddleware = createSagaMiddleware();
 
-const composedEnhancers = compose(applyMiddleware(...middlewares));
+const middlewares = [logger, sagaMiddleware];
 
-export const store = createStore(rootReducer, undefined, composedEnhancers);
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: middlewares,
+});
+
+sagaMiddleware.run(rootSaga);

@@ -1,46 +1,10 @@
-import { useState, useRef } from 'react';
-import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { Box, TextField, Typography, Alert } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Link from 'next/link';
-
-async function createUser(email, password, passwordConfirm) {
-  const response = await fetch('/api/auth/signup', {
-    method: 'POST',
-    body: JSON.stringify({ email, password, passwordConfirm }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    const { error } = data;
-
-    let errorMsg;
-
-    // Operational errors
-    switch (error) {
-      case error === 'User validation failed: passwordConfirm: Passwords are not the same!':
-        errorMsg = 'Passwords are not the same!';
-        break;
-      case error.code === 11000: // not working #bug
-        errorMsg = 'Email has taken already please choose another one.';
-        break;
-      default:
-        errorMsg = 'Something went wrong!';
-    }
-
-    if (error.code === 11000) {
-      errorMsg = 'Email has taken already please choose another one.';
-    }
-
-    throw new Error(errorMsg);
-  }
-
-  return data;
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { closeSignup, signUpStart } from '@/store/user/user.reducer';
+import { selectUserOperationStatus } from '../../store/user/user.selector';
 
 const defaultFormFields = {
   email: '',
@@ -49,10 +13,9 @@ const defaultFormFields = {
 };
 
 const SignupForm = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [signedUp, setSignedUp] = useState(false);
+  const { loading, signedUp, error } = useSelector(selectUserOperationStatus);
 
   const { email, password, passwordConfirm } = formFields;
 
@@ -61,27 +24,11 @@ const SignupForm = () => {
   };
 
   const submitHandler = async (event) => {
-    setLoading(true);
-
     event.preventDefault();
 
-    try {
-      if (!email || (!password && !passwordConfirm))
-        throw new Error('Please fill the required details!');
+    dispatch(signUpStart(formFields));
 
-      if (password !== passwordConfirm) throw new Error('Password not matched. please try again');
-
-      const result = await createUser(email, password, passwordConfirm);
-
-      if (result.error) throw new Error(result.error);
-
-      setSignedUp(true);
-    } catch (error) {
-      setError(error.message);
-    }
-
-    resetFormFields();
-    setLoading(false);
+    if (signedUp) resetFormFields();
   };
 
   const handleChange = (event) => {
@@ -151,7 +98,7 @@ const SignupForm = () => {
           <Link href='/login'>Successfully signed up, click here and log in now! 😊</Link>
           <button
             className='absolute top-0 right-1 text-xl'
-            onClick={() => setSignedUp((signedUp) => !signedUp)}
+            onClick={() => dispatch(closeSignup())}
           >
             ✖
           </button>

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Item from '../../components/item/item';
 import { useDispatch, useSelector } from 'react-redux';
 import { setVirtualList } from '../../store/list/list.action';
-import { selectVirtualList } from '../../store/list/list-selector';
+import { selectVirtualList } from '../../store/list/list.selector';
 import { data } from '../../model/list';
 
 export default function List() {

@@ -18,6 +18,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/store/root-saga.js",
+    "src/store/user/user.workerSaga.js",
+    "src/components/auth/signup-form.js"
+  ],
   "exclude": ["node_modules"]
 }

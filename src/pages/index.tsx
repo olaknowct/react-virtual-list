@@ -13,7 +13,7 @@ export default function Home() {
           Signup to create an account
           <Link
             href="/signup"
-            className=" ml-2 bg-green-300 px-2 py-1 rounded-md  underline underline-offset-2"
+            className="ml-2 bg-green-300 px-2 py-1 rounded-md  underline underline-offset-2"
           >
             Click here to signup
           </Link>
@@ -24,9 +24,10 @@ export default function Home() {
         </li>
         <li>Test Credentials are provided from the login page anyways</li>
 
-        <li> Once login you'l redirected to List Page</li>
+        <li> Once login you&apos;l redirected to List Page</li>
         <li>
-          When you are logged in you'l not be able to visit Login & Signup page
+          When you are logged in you&apos;l not be able to visit Login & Signup
+          page
         </li>
         <li>Logout function when logged in</li>
         <li>

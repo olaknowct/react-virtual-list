@@ -1,3 +1,22 @@
+import { HomeContainer } from './home.styles';
+
 export default function Home() {
-  return <h1>home</h1>;
+  return (
+    <HomeContainer>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet cum
+        perferendis exercitationem voluptatem corporis. Veritatis maiores at
+        dolores sapiente, totam voluptates tempore, incidunt provident
+        laudantium explicabo earum vitae iusto pariatur! Lorem ipsum dolor sit
+        amet consectetur adipisicing elit. Eveniet cum perferendis
+        exercitationem voluptatem corporis. Veritatis maiores at dolores
+        sapiente, totam voluptates tempore, incidunt provident laudantium
+        explicabo earum vitae iusto pariatur! Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Eveniet cum perferendis exercitationem
+        voluptatem corporis. Veritatis maiores at dolores sapiente, totam
+        voluptates tempore, incidunt provident laudantium explicabo earum vitae
+        iusto pariatur!
+      </p>
+    </HomeContainer>
+  );
 }

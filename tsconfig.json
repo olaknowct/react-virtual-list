@@ -24,7 +24,8 @@
     "**/*.tsx",
     "src/store/root-saga.js",
     "src/store/user/user.workerSaga.js",
-    "src/components/auth/signup-form.js"
+    "src/components/auth/signup-form.js",
+    "src/components/layout/layout.js"
   ],
   "exclude": ["node_modules"]
 }

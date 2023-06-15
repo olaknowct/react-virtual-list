@@ -1,9 +1,6 @@
 import mongoose from 'mongoose';
 
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-);
+const DB = process.env.DATABASE;
 
 export async function connectMongoDB() {
   try {

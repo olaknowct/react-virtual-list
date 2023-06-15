@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
 import { GetServerSidePropsContext } from 'next';
 import LoginForm from '../../components/auth/login-form';
-import { Container } from './login.styles';
+import { Container } from '../../components/styled/login.styles';
 
 function AuthPage() {
   return (

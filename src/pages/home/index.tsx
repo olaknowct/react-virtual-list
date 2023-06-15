@@ -1,4 +1,4 @@
-import { HomeContainer } from './home.styles';
+import { HomeContainer } from '../../components/styled/home.styles';
 
 export default function Home() {
   return (

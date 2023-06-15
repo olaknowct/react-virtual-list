@@ -16,19 +16,26 @@ export default function List() {
 
   useEffect(() => {
     dispatch(setVirtualList(data));
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
-      <Typography align='center' variant='h4' sx={{ margin: '16px' }}>
+      <Typography align="center" variant="h4" sx={{ margin: '16px' }}>
         Virtual List
       </Typography>
-      <Box className='flex justify-center mt-16'>
+      <Box className="flex justify-center mt-16">
         {!itemCount ? (
-          <CircularProgress color='inherit' />
+          <CircularProgress color="inherit" />
         ) : (
-          <ListItem height={400} width={300} itemCount={itemCount} itemSize={50}>
-            {({ index, style }) => <Item index={index} style={style} virtualList={virtualList} />}
+          <ListItem
+            height={400}
+            width={300}
+            itemCount={itemCount}
+            itemSize={50}
+          >
+            {({ index, style }) => (
+              <Item index={index} style={style} virtualList={virtualList} />
+            )}
           </ListItem>
         )}
       </Box>

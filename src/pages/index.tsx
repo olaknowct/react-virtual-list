@@ -36,10 +36,10 @@ export default function Home() {
           </span>
         </li>
         <li>
-          About page shows the{' '}
-          <span className="bg-cyan-300 p-1 rounded-md">
+          About page shows the
+          <span className="bg-cyan-300 p-1 mx-1 rounded-md">
             Tools & Technologies
-          </span>{' '}
+          </span>
           used on this project
         </li>
       </ul>

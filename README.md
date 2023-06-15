@@ -1,3 +1,7 @@
+### Run Locally
+- Clone this repository
+- Set DATABASE and DATABASE_PASSWORD FROM .env file
+- Run the following command : npm run dev
 ### Screenshot
 
 

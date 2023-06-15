@@ -26,10 +26,14 @@ export const userSlice = createSlice({
     closeSignup(state) {
       state.signedUp = false;
     },
+    setError(state, action) {
+      state.error = action.payload;
+    },
   },
 });
 
-export const { closeSignup, signUpStart, signInSuccess, signupFailed } = userSlice.actions;
+export const { setError, closeSignup, signUpStart, signInSuccess, signupFailed } =
+  userSlice.actions;
 
 export const userReducer = userSlice.reducer;
 

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, TextField, Typography, Alert } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeSignup, signUpStart } from '@/store/user/user.reducer';
+import { closeSignup, signUpStart, setError } from '@/store/user/user.reducer';
 import { selectUserOperationStatus } from '../../store/user/user.selector';
 
 const defaultFormFields = {
@@ -18,6 +18,12 @@ const SignupForm = () => {
   const { loading, signedUp, error } = useSelector(selectUserOperationStatus);
 
   const { email, password, passwordConfirm } = formFields;
+
+  useEffect(() => {
+    return () => {
+      dispatch(setError(false));
+    };
+  }, []);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
